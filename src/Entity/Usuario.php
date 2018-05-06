@@ -43,10 +43,16 @@ class Usuario
      */
     private $emails;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Foto", mappedBy="usuario")
+     */
+    private $fotos;
+
     public function __construct()
     {
         $this->telefones = new ArrayCollection();
         $this->emails = new ArrayCollection();
+        $this->fotos = new ArrayCollection();
     }
 
     public function getId()
@@ -151,6 +157,37 @@ class Usuario
             // set the owning side to null (unless already changed)
             if ($email->getUsuario() === $this) {
                 $email->setUsuario(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Foto[]
+     */
+    public function getFotos(): Collection
+    {
+        return $this->fotos;
+    }
+
+    public function addFoto(Foto $foto): self
+    {
+        if (!$this->fotos->contains($foto)) {
+            $this->fotos[] = $foto;
+            $foto->setUsuario($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFoto(Foto $foto): self
+    {
+        if ($this->fotos->contains($foto)) {
+            $this->fotos->removeElement($foto);
+            // set the owning side to null (unless already changed)
+            if ($foto->getUsuario() === $this) {
+                $foto->setUsuario(null);
             }
         }
 
