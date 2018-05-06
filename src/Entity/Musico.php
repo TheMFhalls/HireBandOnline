@@ -30,12 +30,12 @@ class Musico
     private $nome;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $historia;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Categoria", mappedBy="musico")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Categoria", inversedBy="musicos")
      */
     private $categoria;
 
@@ -78,7 +78,7 @@ class Musico
         return $this->historia;
     }
 
-    public function setHistoria(string $historia): self
+    public function setHistoria(?string $historia): self
     {
         $this->historia = $historia;
 
@@ -97,7 +97,6 @@ class Musico
     {
         if (!$this->categoria->contains($categorium)) {
             $this->categoria[] = $categorium;
-            $categorium->setMusico($this);
         }
 
         return $this;
@@ -107,10 +106,6 @@ class Musico
     {
         if ($this->categoria->contains($categorium)) {
             $this->categoria->removeElement($categorium);
-            // set the owning side to null (unless already changed)
-            if ($categorium->getMusico() === $this) {
-                $categorium->setMusico(null);
-            }
         }
 
         return $this;

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,10 +24,14 @@ class Categoria
     private $nome;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Musico", inversedBy="categoria")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Musico", mappedBy="categoria")
      */
-    private $musico;
+    private $musicos;
+
+    public function __construct()
+    {
+        $this->musicos = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -44,14 +50,30 @@ class Categoria
         return $this;
     }
 
-    public function getMusico(): ?Musico
+    /**
+     * @return Collection|Musico[]
+     */
+    public function getMusicos(): Collection
     {
-        return $this->musico;
+        return $this->musicos;
     }
 
-    public function setMusico(?Musico $musico): self
+    public function addMusico(Musico $musico): self
     {
-        $this->musico = $musico;
+        if (!$this->musicos->contains($musico)) {
+            $this->musicos[] = $musico;
+            $musico->addCategorium($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMusico(Musico $musico): self
+    {
+        if ($this->musicos->contains($musico)) {
+            $this->musicos->removeElement($musico);
+            $musico->removeCategorium($this);
+        }
 
         return $this;
     }
