@@ -38,15 +38,9 @@ class Usuario
      */
     private $telefones;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Email", mappedBy="usuario")
-     */
-    private $emails;
-
     public function __construct()
     {
         $this->telefones = new ArrayCollection();
-        $this->emails = new ArrayCollection();
     }
 
     public function getId()
@@ -124,36 +118,5 @@ class Usuario
     public function __toString()
     {
         return $this->login;
-    }
-
-    /**
-     * @return Collection|Email[]
-     */
-    public function getEmails(): Collection
-    {
-        return $this->emails;
-    }
-
-    public function addEmail(Email $email): self
-    {
-        if (!$this->emails->contains($email)) {
-            $this->emails[] = $email;
-            $email->setUsuario($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEmail(Email $email): self
-    {
-        if ($this->emails->contains($email)) {
-            $this->emails->removeElement($email);
-            // set the owning side to null (unless already changed)
-            if ($email->getUsuario() === $this) {
-                $email->setUsuario(null);
-            }
-        }
-
-        return $this;
     }
 }
