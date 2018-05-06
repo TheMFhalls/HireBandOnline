@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Musico index{% endblock %}
+
+{% block body %}
+    <h1>Musico index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Historia</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for musico in musicos %}
+            <tr>
+                <td>{{ musico.id }}</td>
+                <td>{{ musico.nome }}</td>
+                <td>{{ musico.historia }}</td>
+                <td>
+                    <a href="{{ path('musico_show', {'id': musico.id}) }}">show</a>
+                    <a href="{{ path('musico_edit', {'id': musico.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('musico_new') }}">Create new</a>
+{% endblock %}

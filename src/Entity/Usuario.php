@@ -63,6 +63,11 @@ class Usuario
      */
     private $videos;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Musico", mappedBy="usuario")
+     */
+    private $musicos;
+
     public function __construct()
     {
         $this->telefones = new ArrayCollection();
@@ -71,6 +76,7 @@ class Usuario
         $this->mensagens01 = new ArrayCollection();
         $this->mensagens02 = new ArrayCollection();
         $this->videos = new ArrayCollection();
+        $this->musicos = new ArrayCollection();
     }
 
     public function getId()
@@ -299,6 +305,37 @@ class Usuario
             // set the owning side to null (unless already changed)
             if ($video->getUsuario() === $this) {
                 $video->setUsuario(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Musico[]
+     */
+    public function getMusicos(): Collection
+    {
+        return $this->musicos;
+    }
+
+    public function addMusico(Musico $musico): self
+    {
+        if (!$this->musicos->contains($musico)) {
+            $this->musicos[] = $musico;
+            $musico->setUsuario($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMusico(Musico $musico): self
+    {
+        if ($this->musicos->contains($musico)) {
+            $this->musicos->removeElement($musico);
+            // set the owning side to null (unless already changed)
+            if ($musico->getUsuario() === $this) {
+                $musico->setUsuario(null);
             }
         }
 
