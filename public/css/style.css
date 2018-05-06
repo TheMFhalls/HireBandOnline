@@ -54,12 +54,12 @@ body header section.menu{
     background-color: #5252ff;
 }
 
-body header section.logo .slogan h2{
-    color: white;
-    font-weight: 300;
+body header section.logo img{
+    width: 300px;
+    margin: auto;
 }
 
 body header section.logo{
     padding: 20px 0px;
-    background-color: #ff6060;
+    background-color: #60ffe9;
 }
