@@ -19,7 +19,7 @@ class Musico
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Usuario", inversedBy="musicos")
+     * @ORM\OneToOne(targetEntity="App\Entity\Usuario", inversedBy="musico", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $usuario;
@@ -35,18 +35,12 @@ class Musico
     private $historia;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Categoria", mappedBy="musico")
-     */
-    private $categorias;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Categoria", inversedBy="musicos")
+     * @ORM\OneToMany(targetEntity="App\Entity\Categoria", mappedBy="musico")
      */
     private $categoria;
 
     public function __construct()
     {
-        $this->categorias = new ArrayCollection();
         $this->categoria = new ArrayCollection();
     }
 
@@ -60,7 +54,7 @@ class Musico
         return $this->usuario;
     }
 
-    public function setUsuario(?Usuario $usuario): self
+    public function setUsuario(Usuario $usuario): self
     {
         $this->usuario = $usuario;
 
@@ -94,34 +88,6 @@ class Musico
     /**
      * @return Collection|Categoria[]
      */
-    public function getCategorias(): Collection
-    {
-        return $this->categorias;
-    }
-
-    public function addCategoria(Categoria $categoria): self
-    {
-        if (!$this->categorias->contains($categoria)) {
-            $this->categorias[] = $categoria;
-            $categoria->addMusico($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategoria(Categoria $categoria): self
-    {
-        if ($this->categorias->contains($categoria)) {
-            $this->categorias->removeElement($categoria);
-            $categoria->removeMusico($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Categoria[]
-     */
     public function getCategoria(): Collection
     {
         return $this->categoria;
@@ -131,6 +97,7 @@ class Musico
     {
         if (!$this->categoria->contains($categorium)) {
             $this->categoria[] = $categorium;
+            $categorium->setMusico($this);
         }
 
         return $this;
@@ -140,6 +107,10 @@ class Musico
     {
         if ($this->categoria->contains($categorium)) {
             $this->categoria->removeElement($categorium);
+            // set the owning side to null (unless already changed)
+            if ($categorium->getMusico() === $this) {
+                $categorium->setMusico(null);
+            }
         }
 
         return $this;

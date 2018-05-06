@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,25 +17,15 @@ class Categoria
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=100)
      */
     private $nome;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Musico", inversedBy="categorias")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Musico", inversedBy="categoria")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $musico;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Musico", mappedBy="categoria")
-     */
-    private $musicos;
-
-    public function __construct()
-    {
-        $this->musico = new ArrayCollection();
-        $this->musicos = new ArrayCollection();
-    }
 
     public function getId()
     {
@@ -56,37 +44,15 @@ class Categoria
         return $this;
     }
 
-    /**
-     * @return Collection|Musico[]
-     */
-    public function getMusico(): Collection
+    public function getMusico(): ?Musico
     {
         return $this->musico;
     }
 
-    public function addMusico(Musico $musico): self
+    public function setMusico(?Musico $musico): self
     {
-        if (!$this->musico->contains($musico)) {
-            $this->musico[] = $musico;
-        }
+        $this->musico = $musico;
 
         return $this;
-    }
-
-    public function removeMusico(Musico $musico): self
-    {
-        if ($this->musico->contains($musico)) {
-            $this->musico->removeElement($musico);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Musico[]
-     */
-    public function getMusicos(): Collection
-    {
-        return $this->musicos;
     }
 }

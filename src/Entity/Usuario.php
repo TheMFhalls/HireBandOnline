@@ -68,6 +68,11 @@ class Usuario
      */
     private $musicos;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Musico", mappedBy="usuario", cascade={"persist", "remove"})
+     */
+    private $musico;
+
     public function __construct()
     {
         $this->telefones = new ArrayCollection();
@@ -337,6 +342,23 @@ class Usuario
             if ($musico->getUsuario() === $this) {
                 $musico->setUsuario(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getMusico(): ?Musico
+    {
+        return $this->musico;
+    }
+
+    public function setMusico(Musico $musico): self
+    {
+        $this->musico = $musico;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $musico->getUsuario()) {
+            $musico->setUsuario($this);
         }
 
         return $this;

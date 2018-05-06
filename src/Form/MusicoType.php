@@ -15,8 +15,6 @@ class MusicoType extends AbstractType
             ->add('nome')
             ->add('historia')
             ->add('usuario')
-            ->add('categorias')
-            ->add('categoria')
         ;
     }
 
