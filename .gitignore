@@ -1,6 +1,6 @@
 
 ###> symfony/framework-bundle ###
-.idea/*
+/.idea/*
 heredes.pem
 start_server.sh
 /.env
