@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EnderecoEletronico index{% endblock %}
+
+{% block body %}
+    <h1>EnderecoEletronico index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>EnderecoEletronico</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for endereco_eletronico in endereco_eletronicos %}
+            <tr>
+                <td>{{ endereco_eletronico.id }}</td>
+                <td>{{ endereco_eletronico.enderecoEletronico }}</td>
+                <td>
+                    <a href="{{ path('endereco_eletronico_show', {'id': endereco_eletronico.id}) }}">show</a>
+                    <a href="{{ path('endereco_eletronico_edit', {'id': endereco_eletronico.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('endereco_eletronico_new') }}">Create new</a>
+{% endblock %}

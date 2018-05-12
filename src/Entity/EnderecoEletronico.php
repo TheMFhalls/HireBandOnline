@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\EmailRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\EnderecoEletronicoRepository")
  */
-class Email
+class EnderecoEletronico
 {
     /**
      * @ORM\Id()
@@ -17,7 +17,7 @@ class Email
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Usuario", inversedBy="emails")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Usuario", inversedBy="enderecoEletronicos")
      * @ORM\JoinColumn(nullable=false)
      */
     private $usuario;
@@ -25,7 +25,7 @@ class Email
     /**
      * @ORM\Column(type="string", length=150)
      */
-    private $email;
+    private $enderecoEletronico;
 
     public function getId()
     {
@@ -44,14 +44,14 @@ class Email
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEnderecoEletronico(): ?string
     {
-        return $this->email;
+        return $this->enderecoEletronico;
     }
 
-    public function setEmail(string $email): self
+    public function setEnderecoEletronico(string $enderecoEletronico): self
     {
-        $this->email = $email;
+        $this->enderecoEletronico = $enderecoEletronico;
 
         return $this;
     }

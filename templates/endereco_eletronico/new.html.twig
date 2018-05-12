@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New EnderecoEletronico{% endblock %}
+
+{% block body %}
+    <h1>Create new EnderecoEletronico</h1>
+
+    {{ include('endereco_eletronico/_form.html.twig') }}
+
+    <a href="{{ path('endereco_eletronico_index') }}">back to list</a>
+{% endblock %}

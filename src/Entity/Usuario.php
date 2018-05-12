@@ -39,11 +39,6 @@ class Usuario
     private $telefones;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Email", mappedBy="usuario")
-     */
-    private $emails;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Foto", mappedBy="usuario")
      */
     private $fotos;
@@ -68,14 +63,19 @@ class Usuario
      */
     private $musico;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EnderecoEletronico", mappedBy="usuario")
+     */
+    private $enderecoEletronicos;
+
     public function __construct()
     {
         $this->telefones = new ArrayCollection();
-        $this->emails = new ArrayCollection();
         $this->fotos = new ArrayCollection();
         $this->mensagens01 = new ArrayCollection();
         $this->mensagens02 = new ArrayCollection();
         $this->videos = new ArrayCollection();
+        $this->enderecoEletronicos = new ArrayCollection();
     }
 
     public function getId()
@@ -153,37 +153,6 @@ class Usuario
     public function __toString()
     {
         return $this->login;
-    }
-
-    /**
-     * @return Collection|Email[]
-     */
-    public function getEmails(): Collection
-    {
-        return $this->emails;
-    }
-
-    public function addEmail(Email $email): self
-    {
-        if (!$this->emails->contains($email)) {
-            $this->emails[] = $email;
-            $email->setUsuario($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEmail(Email $email): self
-    {
-        if ($this->emails->contains($email)) {
-            $this->emails->removeElement($email);
-            // set the owning side to null (unless already changed)
-            if ($email->getUsuario() === $this) {
-                $email->setUsuario(null);
-            }
-        }
-
-        return $this;
     }
 
     /**
@@ -322,6 +291,37 @@ class Usuario
         // set the owning side of the relation if necessary
         if ($this !== $musico->getUsuario()) {
             $musico->setUsuario($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EnderecoEletronico[]
+     */
+    public function getEnderecoEletronicos(): Collection
+    {
+        return $this->enderecoEletronicos;
+    }
+
+    public function addEnderecoEletronico(EnderecoEletronico $enderecoEletronico): self
+    {
+        if (!$this->enderecoEletronicos->contains($enderecoEletronico)) {
+            $this->enderecoEletronicos[] = $enderecoEletronico;
+            $enderecoEletronico->setUsuario($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnderecoEletronico(EnderecoEletronico $enderecoEletronico): self
+    {
+        if ($this->enderecoEletronicos->contains($enderecoEletronico)) {
+            $this->enderecoEletronicos->removeElement($enderecoEletronico);
+            // set the owning side to null (unless already changed)
+            if ($enderecoEletronico->getUsuario() === $this) {
+                $enderecoEletronico->setUsuario(null);
+            }
         }
 
         return $this;
