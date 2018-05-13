@@ -33,7 +33,7 @@ body main{
 
 body footer section.copyright{
     padding: 20px 0px;
-    background-color: #3b8a3b;
+    background-color: #72357f;
     color: white;
     font-weight: 300;
 }
@@ -51,7 +51,7 @@ body header section.menu ul li {
 
 body header section.menu{
     padding: 10px 0px;
-    background-color: #5252ff;
+    background-color: rgba(114, 95, 127, 1);
 }
 
 body header section.logo img{
@@ -61,5 +61,4 @@ body header section.logo img{
 
 body header section.logo{
     padding: 20px 0px;
-    background-color: rgb(96, 255, 233);
 }
