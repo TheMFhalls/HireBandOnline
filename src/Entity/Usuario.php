@@ -68,6 +68,11 @@ class Usuario
      */
     private $enderecoEletronicos;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Estabelecimento", mappedBy="usuario", cascade={"persist", "remove"})
+     */
+    private $estabelecimento;
+
     public function __construct()
     {
         $this->telefones = new ArrayCollection();
@@ -322,6 +327,23 @@ class Usuario
             if ($enderecoEletronico->getUsuario() === $this) {
                 $enderecoEletronico->setUsuario(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getEstabelecimento(): ?Estabelecimento
+    {
+        return $this->estabelecimento;
+    }
+
+    public function setEstabelecimento(Estabelecimento $estabelecimento): self
+    {
+        $this->estabelecimento = $estabelecimento;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $estabelecimento->getUsuario()) {
+            $estabelecimento->setUsuario($this);
         }
 
         return $this;
