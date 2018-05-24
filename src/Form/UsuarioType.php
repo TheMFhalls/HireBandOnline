@@ -15,6 +15,8 @@ class UsuarioType extends AbstractType
             ->add('email')
             ->add('senha')
             ->add('login')
+            ->add('musico')
+            ->add('estabelecimento')
         ;
     }
 
