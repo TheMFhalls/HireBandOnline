@@ -15,6 +15,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CidadeController extends Controller
 {
+
+    public function example(): Response
+    {
+        return new Response(
+            "<h1>Exemplo</h1>"
+        );
+    }
+
     /**
      * @Route("/", name="cidade_index", methods="GET")
      */

@@ -32,6 +32,9 @@
                 <div class="container">
                     {% block body %}{% endblock %}
                 </div>
+                <div class="container">
+                    {{ render(controller('App\\Controller\\CidadeController::example')) }}
+                </div>
             </section>
             {% block main %}{% endblock %}
         </main>
