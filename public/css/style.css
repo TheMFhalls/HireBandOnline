@@ -22,11 +22,6 @@ body{
     font-weight: 300;
 }
 
-body header section.menu ul{
-    padding: 0px;
-    margin: auto;
-}
-
 body main{
     padding: 20px 0px;
 }
@@ -36,27 +31,6 @@ body footer section.copyright{
     background-color: #72357f;
     color: white;
     font-weight: 300;
-}
-
-body header section.menu ul li a{
-    color: white;
-    font-weight: 500;
-}
-
-body header section.menu ul li {
-    display: table-cell;
-    width: 1%;
-    text-align: center;
-}
-
-body header section.menu{
-    padding: 10px 0px;
-    background-color: rgba(114, 95, 127, 1);
-}
-
-body header section.logo img{
-    width: 300px;
-    margin: auto;
 }
 
 body header section.logo{

@@ -11,17 +11,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/cidade")
+ * @Route("/admin/cidade")
  */
 class CidadeController extends Controller
 {
 
+    /*
     public function example(): Response
     {
         return new Response(
             "<h1>Exemplo</h1>"
         );
     }
+    */
 
     /**
      * @Route("/", name="cidade_index", methods="GET")

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/mensagem")
+ * @Route("/admin/mensagem")
  */
 class MensagemController extends Controller
 {

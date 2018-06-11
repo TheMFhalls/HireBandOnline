@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/endereco/eletronico")
+ * @Route("/admin/endereco/eletronico")
  */
 class EnderecoEletronicoController extends Controller
 {
