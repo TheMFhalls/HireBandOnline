@@ -35,6 +35,10 @@ body main section.body{
     padding: 20px 15px;
 }
 
+body main section.menu ul{
+    padding: 0px;
+}
+
 body main section.menu ul li{
     display: block;
 }
@@ -63,4 +67,30 @@ body header section.logo{
 
 body header section.logo span{
     font-size: 11px;
+}
+
+body header section.adminbar{
+    padding: 20px 15px;
+}
+
+body header section.adminbar ul{
+    padding: 0px;
+    margin: 0px;
+}
+
+body header section.adminbar ul li{
+    display: table-cell;
+    width: 1%;
+}
+
+@media(max-width: 991px){
+    body header section.adminbar ul li{
+        display: block;
+        width: auto;
+    }
+}
+
+body header section.adminbar ul li a{
+    font-weight: 500;
+    color: white;
 }
