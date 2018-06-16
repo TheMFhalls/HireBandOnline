@@ -7,7 +7,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Debug\Debug;
 
 class LoginController extends Controller
 {
@@ -17,7 +16,7 @@ class LoginController extends Controller
     public function index()
     {
         return $this->render('login/index.html.twig', [
-            'controller_name' => 'LoginController',
+            'controller_name' => 'LoginController'
         ]);
     }
 
@@ -37,10 +36,15 @@ class LoginController extends Controller
             ]
         );
 
-        foreach($users as $user){
-            print_r($user);
-        }
+        if(count($users) != 1){
+            $this->addFlash(
+                "Mensagem",
+                "Usuáriou e/ou senha inválidos!"
+            );
 
-        return new Response();
+            return $this->redirectToRoute("login");
+        }else{
+
+        }
     }
 }
