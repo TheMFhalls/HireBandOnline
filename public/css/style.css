@@ -26,29 +26,29 @@ body header{
     background-color: #72357f;
 }
 
-body main{
+body main.administracao{
     background-color: #3e3e3e;
 }
 
-body main section.menu,
-body main section.body{
+body main.administracao section.menu,
+body main.administracao section.body{
     padding: 20px 15px;
 }
 
-body main section.menu ul{
+body main.administracao section.menu ul{
     padding: 0px;
 }
 
-body main section.menu ul li{
+body main.administracao section.menu ul li{
     display: block;
 }
 
-body main section.menu ul li a{
+body main.administracao section.menu ul li a{
     font-weight: 500;
     color: white;
 }
 
-body main section.body{
+body main.administracao section.body{
     background-color: white;
 }
 
