@@ -44,7 +44,12 @@ class LoginController extends Controller
 
             return $this->redirectToRoute("login");
         }else{
+            $this->addFlash(
+                "Mensagem",
+                "Login efetuado com sucesso!"
+            );
 
+            return $this->redirectToRoute("home");
         }
     }
 }

@@ -1,20 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'home.html.twig' %}
 
-{% block base %}
-<main>
-    <section class="container">
-        <div class="row">
-            <div class="form-login col-12 offset-md-3 col-md-6">
-                <form action="{{ path('verificar') }}" method="post">
-                    <label for="login">Informe seu Login</label>
-                    <input type="text" id="login" name="login" />
-                    <label for="password">Informe sua Senha</label>
-                    <input type="password" id="password" name="password" />
-                    <br>
-                    <input type="submit" value="Logar" class="btn btn-info" />
-                </form>
-            </div>
-        </div>
-    </section>
-</main>
+{% block body %}
+<div class="form-login col-12 offset-md-3 col-md-6">
+    <form action="{{ path('verificar') }}" method="post">
+        <label for="login">Informe seu Login</label>
+        <input type="text" id="login" name="login" />
+        <label for="password">Informe sua Senha</label>
+        <input type="password" id="password" name="password" />
+        <br>
+        <input type="submit" value="Logar" class="btn btn-info" />
+    </form>
+</div>
 {% endblock %}
