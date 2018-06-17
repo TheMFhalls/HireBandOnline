@@ -1,14 +1,23 @@
 {% extends 'base.html.twig' %}
 
+{% block bodyClass %}home{% endblock %}
+
 {% block base %}
 <header>
     <div class="container">
         <div class="row">
-            <section class="logo col-12 col-lg-3 text-center">
-                HIRE BAND <span>Área do usuário</span>
+            <section class="logo col-12 col-lg-2 pt-10 pb-10 text-center">
+                <img src="{{ asset("img/logo.png") }}" alt="HireBandOnline"
+                class="img-responsive" />
             </section>
-            <section class="adminbar col-12 offset-lg-6 col-lg-3 text-right">
+            <section class="adminbar col-12 offset-lg-2 col-lg-8 text-center">
                 <ul>
+                    <li>
+                        <a href="javascript:void(0);">Busco por Musicos</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);">Busco por Estabelecimentos</a>
+                    </li>
                     <li>
                         <a href="javascript:void(0);">Sair</a>
                     </li>
@@ -17,39 +26,8 @@
         </div>
     </div>
 </header>
-<main class="administracao">
-    <div class="container-fluid">
-        <div class="row">
-            <section class="menu col-12 col-lg-3">
-                <ul>
-                    <li>
-                        <a href="{{ path('bairro_index') }}">Informações do usuário</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);">Fotos</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);">Mensagens</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);">Telefones</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);">E-mails</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);">Videos</a>
-                    </li>
-                    {% block menu %}{% endblock %}
-                </ul>
-            </section>
-            <section class="body col-12 col-lg-9">
-                <div class="row">
-                    {% block body %}{% endblock %}
-                </div>
-            </section>
-        </div>
-    </div>
+<main>
+    {% block body %}{% endblock %}
     {% block main %}{% endblock %}
 </main>
 {% endblock %}

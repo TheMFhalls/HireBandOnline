@@ -11,7 +11,7 @@
         <link href="{{ asset("css/base.css") }}" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
     </head>
-    <body>
+    <body class="{% block bodyClass %}{% endblock %}">
         {% block base %}{% endblock %}
         <footer>
             <section class="copyright">

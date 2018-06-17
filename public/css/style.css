@@ -1,15 +1,16 @@
-.mt-10{
-    margin-top: 10px;
-}
-
-.mb-10{
-    margin-bottom: 10px;
-}
-
 .img-responsive{
     max-width: 100%;
     height: auto;
     display: block;
+}
+
+.btn-hire {
+    background: linear-gradient(transparent,
+    rgba(0, 0, 0, 0.75));
+    background-color: #72357f;
+    color: white;
+    font-weight: 700;
+    border-color: transparent;
 }
 
 input,
@@ -39,33 +40,57 @@ body{
     font-weight: 300;
 }
 
-body header{
+body.home header{
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+    background: linear-gradient(rgba(0, 0, 0, 0.75),rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0.75),rgba(0, 0, 0, 0.5),transparent);
+}
+
+body.home.interna header{
+    position: static;
     background-color: #72357f;
 }
 
-body main.administracao{
+@media(max-width: 991px){
+    body.home header{
+        position: static;
+        background-color: #72357f;
+    }
+}
+
+body.home header section.logo img{
+    filter: grayscale(100%) brightness(100);
+}
+
+body.administracao header{
+    background-color: #72357f;
+}
+
+body.administracao main{
     background-color: #3e3e3e;
 }
 
-body main.administracao section.menu,
-body main.administracao section.body{
+body.administracao main section.menu,
+body.administracao main section.body{
     padding: 20px 15px;
 }
 
-body main.administracao section.menu ul{
+body.administracao main section.menu ul{
     padding: 0px;
 }
 
-body main.administracao section.menu ul li{
+body.administracao main section.menu ul li{
     display: block;
 }
 
-body main.administracao section.menu ul li a{
+body.administracao main section.menu ul li a{
     font-weight: 500;
     color: white;
 }
 
-body main.administracao section.body{
+body.administracao main section.body{
     background-color: white;
 }
 
@@ -76,13 +101,12 @@ body footer section.copyright{
     font-weight: 300;
 }
 
-body header section.logo{
-    padding: 20px 15px;
+body.administracao header section.logo{
     font-weight: 700;
     color: white;
 }
 
-body header section.logo span{
+body.administracao header section.logo span{
     font-size: 11px;
 }
 
