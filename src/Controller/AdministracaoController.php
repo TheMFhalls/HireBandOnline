@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class AdministracaoController extends Controller
 {
     /**
-     * @Route("/administracao", name="administracao")
+     * @Route("/admin", name="administracao")
      */
     public function index()
     {

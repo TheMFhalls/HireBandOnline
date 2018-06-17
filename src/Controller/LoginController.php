@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Usuario;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,20 +37,27 @@ class LoginController extends Controller
             ]
         );
 
-        if(count($users) != 1){
+        if(count($users) == 1){
+            $session = new Session();
+            $session->start();
+
+            foreach($users as $user){
+                $session->set("user", $user);
+            }
+
+            $this->addFlash(
+                "Mensagem",
+                "Login efetuado com sucesso!"
+            );
+
+            return $this->redirectToRoute("administracao");
+        }else{
             $this->addFlash(
                 "Mensagem",
                 "Usuáriou e/ou senha inválidos!"
             );
 
             return $this->redirectToRoute("login");
-        }else{
-            $this->addFlash(
-                "Mensagem",
-                "Login efetuado com sucesso!"
-            );
-
-            return $this->redirectToRoute("home");
         }
     }
 }
