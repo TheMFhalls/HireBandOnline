@@ -7,8 +7,10 @@
     <div class="container">
         <div class="row">
             <section class="logo col-12 col-lg-2 pt-10 pb-10 text-center">
-                <img src="{{ asset("img/logo.png") }}" alt="HireBandOnline"
-                class="img-responsive" />
+                <a href="{{ path("home") }}">
+                    <img src="{{ asset("img/logo.png") }}" alt="HireBandOnline"
+                    class="img-responsive" />
+                </a>
             </section>
             <section class="adminbar col-12 offset-lg-2 col-lg-8 text-center">
                 <ul>
@@ -19,7 +21,7 @@
                         <a href="javascript:void(0);">Busco por Estabelecimentos</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);">Sair</a>
+                        <a href="{{ path("login") }}">Login</a>
                     </li>
                 </ul>
             </section>

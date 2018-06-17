@@ -48,16 +48,13 @@ body.home header{
     rgba(0, 0, 0, 0.75),rgba(0, 0, 0, 0.5),transparent);
 }
 
-body.home.interna header{
-    position: static;
-    background-color: #72357f;
-}
-
-@media(max-width: 991px){
-    body.home header{
-        position: static;
-        background-color: #72357f;
-    }
+body.home.interna main section.internas{
+    width: 100%;
+    height: 150px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: block;
 }
 
 body.home header section.logo img{
@@ -101,12 +98,13 @@ body footer section.copyright{
     font-weight: 300;
 }
 
-body.administracao header section.logo{
+body.administracao header section.logo a{
     font-weight: 700;
     color: white;
+    text-decoration: none;
 }
 
-body.administracao header section.logo span{
+body.administracao header section.logo a span{
     font-size: 11px;
 }
 
@@ -124,14 +122,23 @@ body header section.adminbar ul li{
     width: 1%;
 }
 
+body header section.adminbar ul li a{
+    font-weight: 500;
+    color: white;
+}
+
 @media(max-width: 991px){
+    body.home.interna main section.internas{
+        display: none;
+    }
+
     body header section.adminbar ul li{
         display: block;
         width: auto;
     }
-}
 
-body header section.adminbar ul li a{
-    font-weight: 500;
-    color: white;
+    body.home header{
+        position: static;
+        background-color: #72357f;
+    }
 }
