@@ -40,7 +40,7 @@ class CadastrarController extends Controller
             $usuario->setEmail($data->email);
             $usuario->setLogin($data->login);
             $usuario->setSenha($data->senha);
-            
+
             /*
             $doctrine->persist();
             */
