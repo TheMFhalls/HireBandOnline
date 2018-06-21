@@ -9,10 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/login")
+ */
 class LoginController extends Controller
 {
     /**
-     * @Route("/login", name="login", methods="GET")
+     * @Route("/", name="login", methods="GET")
      */
     public function index()
     {
