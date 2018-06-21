@@ -58,6 +58,7 @@ body.home.interna main section.internas span{
     color: white;
     text-shadow: 0px 3px 3px black;
 }
+
 body.home.interna main section.internas{
     position: relative;
     width: 100%;
@@ -66,6 +67,10 @@ body.home.interna main section.internas{
     background-position: center;
     background-size: cover;
     display: block;
+}
+
+body.home main section.destaque img{
+    width: 100%;
 }
 
 body.home header section.logo img{
@@ -131,6 +136,7 @@ body header section.adminbar ul{
 body header section.adminbar ul li{
     display: table-cell;
     width: 1%;
+    color: white;
 }
 
 body header section.adminbar ul li a{
