@@ -32,6 +32,7 @@ class CadastrarController extends Controller
     {
         $data = (object) $request->request->all();
         $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
 
         $doctrine->getConnection()->beginTransaction();
         try{
@@ -39,13 +40,21 @@ class CadastrarController extends Controller
 
             $usuario->setEmail($data->email);
             $usuario->setLogin($data->login);
-            $usuario->setSenha($data->senha);
+            $usuario->setSenha(
+                FuncoesController::gerarSenha($data->password)
+            );
 
-            /*
-            $doctrine->persist();
-            */
-            $doctrine->flush();
+            $em->persist($usuario);
+            $em->flush();
+
             $doctrine->getConnection()->commit();
+
+            $this->addFlash(
+                "Mensagem",
+                "Usuário cadastrado com sucesso!"
+            );
+
+            return $this->redirectToRoute("home");
         }catch(Exception $e){
             $doctrine->getConnection()->rollBack();
 

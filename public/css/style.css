@@ -13,6 +13,20 @@
     border-color: transparent;
 }
 
+fieldset{
+    border: 1px solid lightgray;
+    padding: 15px;
+}
+
+legend{
+    display: inline-block;
+    width: auto;
+    padding: 0px 15px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+}
+
 input,
 select,
 textarea{
