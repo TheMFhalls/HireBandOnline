@@ -45,8 +45,8 @@ class CadastrarController extends Controller
             );
 
             $em->persist($usuario);
-            $em->flush();
 
+            $em->flush();
             $doctrine->getConnection()->commit();
 
             $this->addFlash(

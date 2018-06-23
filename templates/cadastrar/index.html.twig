@@ -6,7 +6,7 @@
 <section class="internas text-center" style="background-image: url({{ asset("img/internas/internas.jpg") }});">
     <span class="font-30">CADASTRAR</span>
 </section>
-<section class="login">
+<section class="cadastrar">
     <div class="container mt-30 mb-30">
         <div class="row">
             <div class="form-login col-12 offset-md-3 col-md-6">
@@ -19,6 +19,15 @@
                         <input type="text" id="login" name="login" required="required" />
                         <label for="password">Informe sua Senha</label>
                         <input type="password" id="password" name="password" required="required" />
+                        <p class="text-center">Sou um...</p>
+                        <span class="tipo_cadastro text-center">
+                            <input type="radio" id="tipo_musico" name="tipo" value="musico" required="required" checked="checked" />
+                            <label for="tipo_musico">Músico</label>
+                        </span>
+                        <span class="tipo_cadastro text-center">
+                            <input type="radio" id="tipo_estabelecimento" name="tipo" value="estabelecimento" required="required" />
+                            <label for="tipo_estabelecimento">Estabelecimento</label>
+                        </span>
                     </fieldset>
                     <br>
                     <input type="submit" value="Cadastrar" class="btn btn-hire" />

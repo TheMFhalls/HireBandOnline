@@ -83,6 +83,17 @@ body.home.interna main section.internas{
     display: block;
 }
 
+body.home.interna main section.cadastrar span.tipo_cadastro {
+    float: left;
+    width: 50%;
+}
+
+body.home.interna main section.cadastrar span.tipo_cadastro input {
+    width: auto;
+    margin: 0px;
+    display: inline-block;
+}
+
 body.home main section.destaque img{
     width: 100%;
 }
@@ -166,6 +177,10 @@ body header section.adminbar ul li a{
     body.home.interna main section.internas{
         background-image: none !important;
         height: auto;
+    }
+
+    body.home.interna main section.cadastrar span.tipo_cadastro {
+        width: 100%;
     }
 
     body header section.adminbar ul li{
