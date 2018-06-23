@@ -55,6 +55,35 @@ body{
     font-weight: 300;
 }
 
+body footer section.ajax {
+    -webkit-transition: .5s ease-out;
+    -moz-transition: .5s ease-out;
+    -o-transition: .5s ease-out;
+    transition: .5s ease-out;
+    opacity: 1;
+    visibility: visible;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+body footer section.ajax.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+body footer section.ajax .loading{
+    width: 20%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
 body.home header{
     position: absolute;
     width: 100%;

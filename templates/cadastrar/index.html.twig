@@ -34,15 +34,21 @@
                         <label for="nome_musico">Informe o nome do(a) Músico/Banda</label>
                         <input type="text" id="nome_musico" name="nome_musico" required="required" />
                         <label for="historia_musico">Informe sua História</label>
-                        <textarea id="historia_musico" name="historia_musico" required="required"></textarea>
+                        <textarea id="historia_musico" name="historia_musico"></textarea>
                     </fieldset>
                     <fieldset id="fieldset_estabelecimento" style="display: none;">
                         <legend>Dados do Estabelecimento</legend>
                         <label for="nome_estabelecimento">Informe o nome do Estabelecimento</label>
                         <input type="text" id="nome_estabelecimento" name="nome_estabelecimento" required="required" />
                         <label for="historia_estabelecimento">Informe sua História</label>
-                        <textarea id="historia_estabelecimento" name="historia_estabelecimento" required="required"></textarea>
-                        <label for="endereco">Informe se Endereço</label>
+                        <textarea id="historia_estabelecimento" name="historia_estabelecimento"></textarea>
+                        <label for="estado">Informe seu Estado</label>
+                        <select id="estado" required="required"></select>
+                        <label for="cidade">Informe sua Cidade</label>
+                        <select id="cidade" required="required"></select>
+                        <label for="bairro">Informe seu Bairro</label>
+                        <select id="bairro" required="required"></select>
+                        <label for="endereco">Informe seu Endereço</label>
                         <input type="text" name="endereco" id="endereco" required="required" />
                     </fieldset>
                     <input type="submit" value="Cadastrar" class="btn btn-hire" />
@@ -56,13 +62,31 @@
 {% block javascripts %}
     <script>
         $(document).ready(function(){
+            var $musico = $("fieldset#fieldset_musico");
+            var $estabelecimento = $("fieldset#fieldset_estabelecimento");
+
+            estadosJson();
+            hideRequired($estabelecimento);
+
             $("input#tipo_musico").on("click", function(){
-                $("fieldset#fieldset_musico").show();
-                $("fieldset#fieldset_estabelecimento").hide();
+                $musico.show();
+                $estabelecimento.hide();
+                showRequired($musico);
+                hideRequired($estabelecimento);
             });
             $("input#tipo_estabelecimento").on("click", function(){
-                $("fieldset#fieldset_estabelecimento").show();
-                $("fieldset#fieldset_musico").hide();
+                $estabelecimento.show();
+                $musico.hide();
+                showRequired($estabelecimento);
+                hideRequired($musico);
+            });
+
+            $("select#estado").on("change", function(){
+                cidadesJson($(this).val());
+            });
+
+            $("select#cidade").on("change", function(){
+                bairrosJson($(this).val());
             });
         });
     </script>
