@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Bairro;
+use App\Entity\Estabelecimento;
+use App\Entity\Musico;
 use App\Entity\Usuario;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,6 +48,29 @@ class CadastrarController extends Controller
             );
 
             $em->persist($usuario);
+
+            if($data->tipo == "musico"){
+                $tipoUsuario = new Musico();
+
+                $tipoUsuario->setNome($data->nome_musico);
+                $tipoUsuario->setHistoria($data->historia_musico);
+                $tipoUsuario->setUsuario($usuario);
+            }else if($data->tipo == "estabelecimento"){
+                $tipoUsuario = new Estabelecimento();
+
+                $tipoUsuario->setNome($data->nome_estabelecimento);
+                $tipoUsuario->setHistoria($data->historia_estabelecimento);
+                $tipoUsuario->setBairro(
+                    $doctrine->getRepository(Bairro::class)
+                        ->find($data->bairro)
+                );
+                $tipoUsuario->setUsuario($usuario);
+                $tipoUsuario->setEndereco($data->endereco);
+            }else{
+                throw new Exception("Informe um tipo de usuário!");
+            }
+
+            $em->persist($tipoUsuario);
 
             $em->flush();
             $doctrine->getConnection()->commit();
