@@ -17,7 +17,7 @@
                         <a href="{{ path("home") }}">Voltar para o Site</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);">Sair</a>
+                        <a href="{{ path("logout") }}">Sair</a>
                     </li>
                 </ul>
             </section>
@@ -52,9 +52,6 @@
             </section>
             <section class="body col-12 col-lg-9">
                 {% block body %}{% endblock %}
-                {#<div class="container">
-                    {{ render(controller('App\\Controller\\CidadeController::example')) }}
-                </div>#}
             </section>
         </div>
     </div>

@@ -17,11 +17,27 @@ class LoginController extends Controller
     /**
      * @Route("/", name="login", methods="GET")
      */
-    public function index()
+    public function login(): Response
     {
         return $this->render('login/index.html.twig', [
             'controller_name' => 'LoginController'
         ]);
+    }
+
+    /**
+     * @Route("/logout", name="logout", methods="GET")
+     */
+    public function logout(): Response
+    {
+        $session = new Session();
+        $session->clear();
+
+        $this->addFlash(
+            "Mensagem",
+            "Usuário deslogado com sucesso!"
+        );
+
+        return $this->redirectToRoute("home");
     }
 
     /**
@@ -42,6 +58,7 @@ class LoginController extends Controller
 
         if(count($users) == 1){
             $session = new Session();
+            $session->clear();
             $session->start();
 
             foreach($users as $user){
@@ -57,7 +74,7 @@ class LoginController extends Controller
         }else{
             $this->addFlash(
                 "Mensagem",
-                "Usuáriou e/ou senha inválidos!"
+                "Usuário e/ou senha inválidos!"
             );
 
             return $this->redirectToRoute("login");

@@ -67,7 +67,6 @@
             var $musico = $("fieldset#fieldset_musico");
             var $estabelecimento = $("fieldset#fieldset_estabelecimento");
 
-            estadosJson();
             hideRequired($estabelecimento);
             categoriasJson();
 
@@ -82,6 +81,7 @@
                 $musico.hide();
                 showRequired($estabelecimento);
                 hideRequired($musico);
+                estadosJson();
             });
 
             $("select#estado").on("change", function(){
