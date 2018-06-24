@@ -57,11 +57,11 @@ class CadastrarController extends Controller
                     $em
                 );
 
-                foreach($data->categorias as $categoria){
-                    $musico->addCategorium(
-                        $doctrine->getRepository(Categoria::class)
-                            ->find($categoria)
-                    );
+                $categorias = $doctrine->getRepository(Categoria::class)
+                    ->findBy(["id" => $data->categorias]);
+
+                foreach($categorias as $categoria){
+                    $musico->addCategorium($categoria);
                 }
 
                 $em->persist($musico);
