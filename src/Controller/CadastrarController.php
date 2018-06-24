@@ -85,7 +85,7 @@ class CadastrarController extends Controller
             );
 
             return $this->redirectToRoute("home");
-        }catch(Exception $e){
+        }catch(\Exception $e){
             $doctrine->getConnection()->rollBack();
 
             $this->addFlash(
