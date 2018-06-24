@@ -84,6 +84,27 @@ function bairrosJson(id){
     });
 }
 
+function categoriasJson(){
+    $.ajax({
+        url: "/json/categorias",
+        beforeSend: function(){
+            $("section.ajax").removeClass("hide");
+            $("select#bairro").find("option").remove();
+        },
+        complete: function(){
+            $("section.ajax").addClass("hide");
+        }
+    }).done(function(data){
+        $select = $("select#categorias");
+
+        $.each(data, function(){
+            $select.append("<option value='"+this.id+"'>"+this.nome+"</option>");
+        });
+    }).fail(function(){
+        alert("Erro ao buscar pelas categorias!");
+    });
+}
+
 $(document).ready(function(){
 
 });

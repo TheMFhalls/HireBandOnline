@@ -36,7 +36,7 @@ class LoginController extends Controller
         $users = $repository->findBy(
             [
                 "login" => $data->login,
-                "senha" => $data->password
+                "senha" => FuncoesController::gerarSenha($data->password)
             ]
         );
 

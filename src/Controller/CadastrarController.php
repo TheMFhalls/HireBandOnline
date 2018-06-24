@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Bairro;
+use App\Entity\Categoria;
 use App\Entity\Estabelecimento;
 use App\Entity\Musico;
 use App\Entity\Usuario;
@@ -50,27 +51,30 @@ class CadastrarController extends Controller
             $em->persist($usuario);
 
             if($data->tipo == "musico"){
-                $tipoUsuario = new Musico();
-
-                $tipoUsuario->setNome($data->nome_musico);
-                $tipoUsuario->setHistoria($data->historia_musico);
-                $tipoUsuario->setUsuario($usuario);
-            }else if($data->tipo == "estabelecimento"){
-                $tipoUsuario = new Estabelecimento();
-
-                $tipoUsuario->setNome($data->nome_estabelecimento);
-                $tipoUsuario->setHistoria($data->historia_estabelecimento);
-                $tipoUsuario->setBairro(
-                    $doctrine->getRepository(Bairro::class)
-                        ->find($data->bairro)
+                $musico = $this->addMusico(
+                    $data,
+                    $usuario,
+                    $em
                 );
-                $tipoUsuario->setUsuario($usuario);
-                $tipoUsuario->setEndereco($data->endereco);
+
+                foreach($data->categorias as $categoria){
+                    $musico->addCategorium(
+                        $doctrine->getRepository(Categoria::class)
+                            ->find($categoria)
+                    );
+                }
+
+                $em->persist($musico);
+            }else if($data->tipo == "estabelecimento"){
+                $estabelecimento = $this->addEstabelecimento(
+                    $data,
+                    $usuario,
+                    $doctrine,
+                    $em
+                );
             }else{
                 throw new Exception("Informe um tipo de usuário!");
             }
-
-            $em->persist($tipoUsuario);
 
             $em->flush();
             $doctrine->getConnection()->commit();
@@ -91,5 +95,49 @@ class CadastrarController extends Controller
 
             return $this->redirectToRoute("cadastrar");
         }
+    }
+
+    /**
+     * @param $data
+     * @param $usuario
+     * @param $em
+     * @return Musico
+     */
+    private function addMusico($data, $usuario, $em): Musico
+    {
+        $musico = new Musico();
+
+        $musico->setNome($data->nome_musico);
+        $musico->setHistoria($data->historia_musico);
+        $musico->setUsuario($usuario);
+
+        $em->persist($musico);
+
+        return $musico;
+    }
+
+    /**
+     * @param $data
+     * @param $usuario
+     * @param $doctrine
+     * @param $em
+     * @return Estabelecimento
+     */
+    private function addEstabelecimento($data, $usuario, $doctrine, $em): Estabelecimento
+    {
+        $estabelecimento = new Estabelecimento();
+
+        $estabelecimento->setNome($data->nome_estabelecimento);
+        $estabelecimento->setHistoria($data->historia_estabelecimento);
+        $estabelecimento->setUsuario($usuario);
+        $estabelecimento->setEndereco($data->endereco);
+        $estabelecimento->setBairro(
+            $doctrine->getRepository(Bairro::class)
+                ->find($data->bairro)
+        );
+
+        $em->persist($estabelecimento);
+
+        return $estabelecimento;
     }
 }

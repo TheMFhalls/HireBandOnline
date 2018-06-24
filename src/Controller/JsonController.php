@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Cidade;
 use App\Entity\Estado;
+use App\Repository\CategoriaRepository;
 use App\Repository\EstadoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,6 +71,25 @@ class JsonController extends Controller
             $json[] = [
                 "id"    => $bairro->getId(),
                 "nome"  => $bairro->getNome()
+            ];
+        }
+
+        $response = new Response(json_encode($json));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @Route("/categorias", methods="GET")
+     */
+    public function categoriasJson(CategoriaRepository $categoriaRepository): Response
+    {
+        $json = [];
+        foreach($categoriaRepository->findAll() as $categoria){
+            $json[] = [
+                "id"    => $categoria->getId(),
+                "nome"  => $categoria->getNome()
             ];
         }
 

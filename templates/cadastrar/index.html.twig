@@ -35,6 +35,8 @@
                         <input type="text" id="nome_musico" name="nome_musico" required="required" />
                         <label for="historia_musico">Informe sua História</label>
                         <textarea id="historia_musico" name="historia_musico"></textarea>
+                        <label for="categorias">Informe suas Categorias</label>
+                        <select id="categorias" name="categorias[]" multiple="multiple"></select>
                     </fieldset>
                     <fieldset id="fieldset_estabelecimento" style="display: none;">
                         <legend>Dados do Estabelecimento</legend>
@@ -67,6 +69,7 @@
 
             estadosJson();
             hideRequired($estabelecimento);
+            categoriasJson();
 
             $("input#tipo_musico").on("click", function(){
                 $musico.show();
