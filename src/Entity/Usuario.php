@@ -29,9 +29,30 @@ class Usuario
     private $senha;
 
     /**
+     * @return mixed
+     */
+    public function getPermissao()
+    {
+        return $this->permissao;
+    }
+
+    /**
+     * @param mixed $permissao
+     */
+    public function setPermissao($permissao)
+    {
+        $this->permissao = $permissao;
+    }
+
+    /**
      * @ORM\Column(type="string", length=100, unique=true)
      */
     private $login;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $permissao;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Telefone", mappedBy="usuario")
