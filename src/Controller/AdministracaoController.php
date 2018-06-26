@@ -16,7 +16,7 @@ class AdministracaoController extends Controller
      */
     public function index()
     {
-        if(strrpos(get_class($session = self::verificarSessao()), "Redirect")) {
+        if(strrpos(get_class($session = FuncoesController::verificarSessao($this)), "Redirect")) {
             return $session;
         }
 

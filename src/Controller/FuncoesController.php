@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class FuncoesController extends Controller
 {
@@ -26,5 +27,24 @@ class FuncoesController extends Controller
         }
 
         return $senha;
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Session
+     */
+    public static function verificarSessao($obj)
+    {
+        $session = new Session();
+
+        if($session->has("user")){
+            return $session;
+        }else{
+            $obj->addFlash(
+                "Mensagem",
+                "Você deve logar para ter acesso a administração do site!"
+            );
+
+            return $obj->redirectToRoute("login");
+        }
     }
 }
