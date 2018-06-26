@@ -1,0 +1,42 @@
+{% extends 'home.html.twig' %}
+
+{% block title %} - Busca por Musicos{% endblock %}
+{% block bodyClass %}home interna{% endblock %}
+
+{% block body %}
+    <section class="internas text-center" style="background-image: url({{ asset("img/internas/internas.jpg") }});">
+        <span class="font-30">Busca por Musicos</span>
+    </section>
+    <section class="buscar-musicos mt-20">
+        <div class="container">
+            <div class="row">
+                <div class="filtro col-12 col-md-3">
+                    <fieldset class="mb-10">
+                        <legend>Filtro</legend>
+                    </fieldset>
+                </div>
+                <div class="musicos col-12 col-md-9">
+                    <div class="row">
+                    {% for musico in musicos %}
+                        <div class="musico col-12 col-md-4 mb-20">
+                            <div class="capsula">
+                                <div class="imagem">
+                                    <img src="{{ asset("img/usuario.jpg") }}" alt="HireBandOnline"
+                                    class="img-responsive" />
+                                </div>
+                                <div class="conteudo col-12">
+                                    <div class="nome font-20 mb-10 text-center">{{ musico.nome }}</div>
+                                    <div class="historia font-13 mb-10 text-justify">{{ musico.historia|striptags }}</div>
+                                    <div class="botao mb-10 text-center">
+                                        <a href="javascript:void(0);" class="btn btn-hire">Saiba Mais</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
