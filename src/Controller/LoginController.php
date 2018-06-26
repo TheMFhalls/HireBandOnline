@@ -58,14 +58,19 @@ class LoginController extends Controller
             ]
         );
 
-        if(count($users) == 1){
+        $user = $repository->findOneBy(
+            [
+                "login" => $data->login,
+                "senha" => FuncoesController::gerarSenha($data->password)
+            ]
+        );
+
+        if($user){
             $session = new Session();
             $session->clear();
             $session->start();
 
-            foreach($users as $user){
-                $session->set("user", $user);
-            }
+            $session->set("user", $user);
 
             $this->addFlash(
                 "Mensagem",
