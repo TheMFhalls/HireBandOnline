@@ -49,6 +49,8 @@ class LoginController extends Controller
 
         $repository = $this->getDoctrine()->getRepository(Usuario::class);
 
+        //TODO: COLOCAR PARA RETORNAR APENAS 1 OBJETO `findOneBy`
+
         $users = $repository->findBy(
             [
                 "login" => $data->login,
