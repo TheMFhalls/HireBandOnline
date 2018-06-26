@@ -105,6 +105,32 @@ function categoriasJson(){
     });
 }
 
+function buscarCategoriasJson(){
+    $.ajax({
+        url: "/json/categorias",
+        beforeSend: function(){
+            $("section.ajax").removeClass("hide");
+        },
+        complete: function(){
+            $("section.ajax").addClass("hide");
+        }
+    }).done(function(data){
+        var $select = $("select#categoria");
+        var selected = $select.attr("data-selected");
+
+        $select.append("<option value=''>-- Selecione --</option>");
+        $.each(data, function(){
+            if(this.id == selected){
+                $select.append("<option value='"+this.id+"' selected>"+this.nome+"</option>");
+            }else{
+                $select.append("<option value='"+this.id+"'>"+this.nome+"</option>");
+            }
+        });
+    }).fail(function(){
+        alert("Erro ao buscar pelas categorias!");
+    });
+}
+
 $(document).ready(function(){
 
 });

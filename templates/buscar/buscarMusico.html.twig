@@ -13,6 +13,24 @@
                 <div class="filtro col-12 col-md-3">
                     <fieldset class="mb-10">
                         <legend>Filtro</legend>
+                        <form action="{{ path("buscar_musico_filtro") }}" method="post">
+                            <label for="nome">por Nome</label>
+                            <input type="text" id="nome" name="nome"
+                            {% if filtro.nome is defined %}
+                                value="{{ filtro.nome }}"
+                            {% endif %}
+                            />
+                            <label for="categoria">por Categoria</label>
+                            <select name="categoria" id="categoria"
+                            {% if filtro.categoria is defined %}
+                                data-selected="{{ filtro.categoria }}"
+                            {% endif %}
+                            >
+                            </select>
+                            <button class="btn btn-hire">
+                                Buscar
+                            </button>
+                        </form>
                     </fieldset>
                 </div>
                 <div class="musicos col-12 col-md-9">
@@ -34,9 +52,20 @@
                             </div>
                         </div>
                     {% endfor %}
+                    {% if musicos is empty %}
+                        <p class="col-12 font-20 text-center">-- Sem musicos --</p>
+                    {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            buscarCategoriasJson();
+        });
+    </script>
 {% endblock %}
