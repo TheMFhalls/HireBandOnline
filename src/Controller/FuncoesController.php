@@ -32,17 +32,16 @@ class FuncoesController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Session
      */
-    public static function verificarSessao($obj)
+    public static function verificarSessao($obj, $mensagem = null)
     {
         $session = new Session();
 
         if($session->has("user")){
             return $session;
         }else{
-            $obj->addFlash(
-                "Mensagem",
-                "Você deve logar para ter acesso a administração do site!"
-            );
+            if($mensagem != null){
+                $obj->addFlash("Mensagem", $mensagem);
+            }
 
             return $obj->redirectToRoute("login");
         }

@@ -19,9 +19,11 @@ class LoginController extends Controller
      */
     public function login(): Response
     {
-        return $this->render('login/index.html.twig', [
-            'controller_name' => 'LoginController'
-        ]);
+        if(strrpos(get_class(FuncoesController::verificarSessao($this)), "Redirect")) {
+            return $this->render('login/index.html.twig');
+        }else{
+            return $this->redirectToRoute("administracao");
+        }
     }
 
     /**
@@ -48,15 +50,6 @@ class LoginController extends Controller
         $data = (object) $request->request->all();
 
         $repository = $this->getDoctrine()->getRepository(Usuario::class);
-
-        //TODO: COLOCAR PARA RETORNAR APENAS 1 OBJETO `findOneBy`
-
-        $users = $repository->findBy(
-            [
-                "login" => $data->login,
-                "senha" => FuncoesController::gerarSenha($data->password)
-            ]
-        );
 
         $user = $repository->findOneBy(
             [

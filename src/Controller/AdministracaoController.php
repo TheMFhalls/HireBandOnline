@@ -16,7 +16,8 @@ class AdministracaoController extends Controller
      */
     public function index()
     {
-        if(strrpos(get_class($session = FuncoesController::verificarSessao($this)), "Redirect")) {
+        $mensagem = "Você deve logar para ter acesso a administração do site!";
+        if(strrpos(get_class($session = FuncoesController::verificarSessao($this, $mensagem)), "Redirect")) {
             return $session;
         }
 
