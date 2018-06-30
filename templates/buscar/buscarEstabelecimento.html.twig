@@ -16,19 +16,27 @@
                         <form action="{{ path("buscar_estabelecimento_filtro") }}" method="post">
                             <label for="nome">por Nome</label>
                             <input type="text" id="nome" name="nome"
-                                    {% if filtro.nome is defined %}
-                                        value="{{ filtro.nome }}"
-                                    {% endif %}
+                            {% if filtro.nome is defined %}
+                                value="{{ filtro.nome }}"
+                            {% endif %}
                             />
-                            <label for="estado">Informe seu Estado</label>
-                            <select id="estado" required="required"></select>
-                            <label for="cidade">Informe sua Cidade</label>
-                            <select id="cidade" required="required"></select>
-                            <label for="bairro">Informe seu Bairro</label>
+                            <label for="estado">seu Estado</label>
+                            <select id="estado" name="estado"
+                            {% if filtro.estado is defined %}
+                                data-selected="{{ filtro.estado }}"
+                            {% endif %}
+                            ></select>
+                            <label for="cidade">sua Cidade</label>
+                            <select id="cidade" name="cidade"
+                            {% if filtro.cidade is defined %}
+                                data-selected="{{ filtro.cidade }}"
+                            {% endif %}
+                            ></select>
+                            <label for="bairro">seu Bairro</label>
                             <select id="bairro" name="bairro" required="required"
-                                    {% if filtro.bairro is defined %}
-                                        data-selected="{{ filtro.bairro }}"
-                                    {% endif %}
+                            {% if filtro.bairro is defined %}
+                                data-selected="{{ filtro.bairro }}"
+                            {% endif %}
                             ></select>
                             </select>
                             <button class="btn btn-hire">
@@ -44,7 +52,7 @@
                                 <div class="capsula">
                                     <div class="imagem">
                                         <img src="{{ asset("img/usuario.jpg") }}" alt="HireBandOnline"
-                                             class="img-responsive" />
+                                        class="img-responsive" />
                                     </div>
                                     <div class="conteudo col-12">
                                         <div class="nome font-20 mb-10 text-center">{{ estabelecimento.nome }}</div>
@@ -69,14 +77,14 @@
 {% block javascripts %}
     <script>
         $(document).ready(function(){
-            estadosJson();
+            buscarEstadosJson();
 
             $("select#estado").on("change", function(){
-                cidadesJson($(this).val());
+                buscarCidadesJson($(this).val());
             });
 
             $("select#cidade").on("change", function(){
-                bairrosJson($(this).val());
+                buscarBairrosJson($(this).val());
             });
         });
     </script>

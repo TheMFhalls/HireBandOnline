@@ -10,7 +10,51 @@ function showRequired($el){
         .attr("required", true);
 }
 
-function estadosJson(){
+function buscarGenericoJson(data, $select) {
+    var selected = $select.attr("data-selected");
+
+    $select.find("option").remove();
+    $select.append("<option value=''>-- Selecione --</option>");
+    $.each(data, function () {
+        if (this.id == selected) {
+            $select.append("<option value='"+this.id+"' selected>"+this.nome+"</option>");
+        } else {
+            $select.append("<option value='"+this.id+"'>"+this.nome+"</option>");
+        }
+    });
+}
+
+function buscarEstadosJson(){
+    estadosJson(function(data){
+        buscarGenericoJson(data, $("select#estado"));
+    });
+}
+
+function buscarCidadesJson(id){
+    cidadesJson(id, function(data){
+        buscarGenericoJson(data, $("select#cidade"));
+    });
+}
+
+function buscarBairrosJson(id){
+    bairrosJson(id, function(data){
+        buscarGenericoJson(data, $("select#bairro"));
+    });
+}
+
+function estadosJson(done){
+    if(!done){
+        done = function(data){
+            $select = $("select#estado");
+
+            $select.find("option").remove();
+            $select.append("<option value=''>-- Selecione seu Estado --</option>");
+            $.each(data, function(){
+                $select.append("<option value='"+this.id+"'>"+this.nome+"</option>");
+            });
+        }
+    }
+
     $.ajax({
         url: "/json/estados/lista",
         beforeSend: function(){
@@ -23,19 +67,25 @@ function estadosJson(){
             $("section.ajax").addClass("hide");
         }
     }).done(function(data){
-        $select = $("select#estado");
-
-        $select.find("option").remove();
-        $select.append("<option value=''>-- Selecione seu Estado --</option>");
-        $.each(data, function(){
-            $select.append("<option value='"+this.id+"'>"+this.nome+"</option>");
-        });
+        done(data);
     }).fail(function(){
         alert("Erro ao buscar pelos estados!");
     });
 }
 
-function cidadesJson(id){
+function cidadesJson(id, done){
+    if(!done){
+        done = function(data){
+            $select = $("select#cidade");
+
+            $select.find("option").remove();
+            $select.append("<option value=''>-- Selecione sua Cidade --</option>");
+            $.each(data, function(){
+                $select.append("<option value='"+this.id+"'>"+this.nome+"</option>");
+            });
+        }
+    }
+
     $.ajax({
         url: "/json/estado/"+id+"/cidades",
         beforeSend: function(){
@@ -47,20 +97,26 @@ function cidadesJson(id){
             $("section.ajax").addClass("hide");
         }
     }).done(function(data){
-        $select = $("select#cidade");
-
-        $select.find("option").remove();
-        $select.append("<option value=''>-- Selecione sua Cidade --</option>");
-        $.each(data, function(){
-            $select.append("<option value='"+this.id+"'>"+this.nome+"</option>");
-        });
+        done(data);
     }).fail(function(){
         // alert("Erro ao buscar pelas cidades!");
         alert("Não existem Cidades cadastradas para este Estado!");
     });
 }
 
-function bairrosJson(id){
+function bairrosJson(id, done){
+    if(!done){
+        done = function(data){
+            $select = $("select#bairro");
+
+            $select.find("option").remove();
+            $select.append("<option value=''>-- Selecione seu Bairro --</option>");
+            $.each(data, function(){
+                $select.append("<option value='"+this.id+"'>"+this.nome+"</option>");
+            });
+        }
+    }
+
     $.ajax({
         url: "/json/cidade/"+id+"/bairros",
         beforeSend: function(){
@@ -71,13 +127,7 @@ function bairrosJson(id){
             $("section.ajax").addClass("hide");
         }
     }).done(function(data){
-        $select = $("select#bairro");
-
-        $select.find("option").remove();
-        $select.append("<option value=''>-- Selecione seu Bairro --</option>");
-        $.each(data, function(){
-            $select.append("<option value='"+this.id+"'>"+this.nome+"</option>");
-        });
+        done(data);
     }).fail(function(){
         // alert("Erro ao buscar pelos bairros!");
         alert("Não existem Bairros cadastradas para esta Cidade!");
