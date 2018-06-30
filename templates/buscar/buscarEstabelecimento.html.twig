@@ -5,6 +5,79 @@
 
 {% block body %}
     <section class="internas text-center" style="background-image: url({{ asset("img/internas/internas.jpg") }});">
-        <span class="font-30">Busca por Estabelecimento</span>
+        <span class="font-30">Busca por Estabelecimentos</span>
     </section>
+    <section class="buscar-estabelecimentos mt-20">
+        <div class="container">
+            <div class="row">
+                <div class="filtro col-12 col-md-3">
+                    <fieldset class="mb-10">
+                        <legend>Filtro</legend>
+                        <form action="{{ path("buscar_estabelecimento_filtro") }}" method="post">
+                            <label for="nome">por Nome</label>
+                            <input type="text" id="nome" name="nome"
+                                    {% if filtro.nome is defined %}
+                                        value="{{ filtro.nome }}"
+                                    {% endif %}
+                            />
+                            <label for="estado">Informe seu Estado</label>
+                            <select id="estado" required="required"></select>
+                            <label for="cidade">Informe sua Cidade</label>
+                            <select id="cidade" required="required"></select>
+                            <label for="bairro">Informe seu Bairro</label>
+                            <select id="bairro" name="bairro" required="required"
+                                    {% if filtro.bairro is defined %}
+                                        data-selected="{{ filtro.bairro }}"
+                                    {% endif %}
+                            ></select>
+                            </select>
+                            <button class="btn btn-hire">
+                                Buscar
+                            </button>
+                        </form>
+                    </fieldset>
+                </div>
+                <div class="estabelecimentos col-12 col-md-9">
+                    <div class="row">
+                        {% for estabelecimento in estabelecimentos %}
+                            <div class="estabelecimento col-12 col-md-4 mb-20">
+                                <div class="capsula">
+                                    <div class="imagem">
+                                        <img src="{{ asset("img/usuario.jpg") }}" alt="HireBandOnline"
+                                             class="img-responsive" />
+                                    </div>
+                                    <div class="conteudo col-12">
+                                        <div class="nome font-20 mb-10 text-center">{{ estabelecimento.nome }}</div>
+                                        <div class="historia font-13 mb-10 text-justify">{{ estabelecimento.historia|striptags }}</div>
+                                        <div class="botao mb-10 text-center">
+                                            <a href="javascript:void(0);" class="btn btn-hire">Saiba Mais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% if estabelecimentos is empty %}
+                            <p class="col-12 font-20 text-center">-- Sem estabelecimentos --</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            estadosJson();
+
+            $("select#estado").on("change", function(){
+                cidadesJson($(this).val());
+            });
+
+            $("select#cidade").on("change", function(){
+                bairrosJson($(this).val());
+            });
+        });
+    </script>
 {% endblock %}

@@ -69,6 +69,50 @@ class BuscarController extends Controller
     }
 
     /**
+     * @Route("/estabelecimento/filtro", name="buscar_estabelecimento_filtro")
+     */
+    public function buscarEstabelecimentoFiltro(EstabelecimentoRepository $estabelecimentoRepository, Request $request): Response
+    {
+        $data = (object) $request->request->all();
+
+        if($data->nome != "" && $data->bairro == ""){
+            $estabelecimentos = $estabelecimentoRepository->createQueryBuilder("musico")
+                ->where("musico.nome LIKE :nome")
+                ->setParameter("nome", "%".$data->nome."%")
+                ->getQuery()
+                ->getResult();
+        }elseif($data->nome == "" && $data->bairro != ""){
+            $estabelecimentos = $estabelecimentoRepository->createQueryBuilder("mus")
+                ->innerJoin("mus.categoria", "cat")
+                ->where("cat.id = :categoria")
+                ->setParameter("categoria", $data->bairro)
+                ->getQuery()
+                ->getResult();
+        }elseif($data->nome != "" && $data->bairro != ""){
+            $estabelecimentos = $estabelecimentoRepository->createQueryBuilder("mus")
+                ->innerJoin("mus.categoria", "cat")
+                ->where("cat.id = :categoria")
+                ->andWhere("mus.nome LIKE :nome")
+                ->setParameter("categoria", $data->bairro)
+                ->setParameter("nome", "%".$data->nome."%")
+                ->getQuery()
+                ->getResult();
+        }else{
+            $this->addFlash(
+                "Mensagem",
+                "Erro ao realizar a busca!"
+            );
+
+            return $this->redirectToRoute("buscar_estabelecimento");
+        }
+
+        return $this->render('buscar/buscarEstabelecimento.html.twig', [
+            'estabelecimentos' => $estabelecimentos,
+            'filtro' => $data
+        ]);
+    }
+
+    /**
      * @Route("/estabelecimento", name="buscar_estabelecimento")
      */
     public function buscarEstabelecimento(EstabelecimentoRepository $estabelecimentoRepository): Response
