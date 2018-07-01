@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Bairro;
 use App\Entity\Categoria;
 use App\Entity\Estabelecimento;
+use App\Entity\Foto;
 use App\Entity\Musico;
 use App\Entity\Usuario;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -28,13 +29,13 @@ class CadastrarController extends Controller
         ]);
     }
 
-
     /**
      * @Route("/new", name="cadastrar_new", methods="POST")
      */
     public function new(Request $request): Response
     {
         $data = (object) $request->request->all();
+
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
 
@@ -49,6 +50,8 @@ class CadastrarController extends Controller
             );
 
             $em->persist($usuario);
+
+            $this->addFotoPerfil($request, $usuario, $em);
 
             if($data->tipo == "musico"){
                 $musico = $this->addMusico(
@@ -139,5 +142,23 @@ class CadastrarController extends Controller
         $em->persist($estabelecimento);
 
         return $estabelecimento;
+    }
+
+    /**
+     * @param Request $request
+     * @param $usuario
+     * @param $em
+     */
+    private function addFotoPerfil(Request $request, $usuario, $em)
+    {
+        $foto = new Foto();
+
+        $foto->setUsuario($usuario);
+        $foto->setDescricao("Imagem de Perfil");
+        $foto->setDiretorio(FuncoesController::converterImagem(
+            $request->files->get("imagem_perfil"))
+        );
+
+        $em->persist($foto);
     }
 }

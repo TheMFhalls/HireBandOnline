@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use phpDocumentor\Reflection\Types\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -27,6 +28,17 @@ class FuncoesController extends Controller
         }
 
         return $senha;
+    }
+
+    /**
+     * @param $imagem
+     * @return string
+     */
+    public static function converterImagem($imagem)
+    {
+        $type = pathinfo($imagem, PATHINFO_EXTENSION);
+        $data = file_get_contents($imagem);
+        return 'data:image/'.$type.';base64,'.base64_encode($data);
     }
 
     /**

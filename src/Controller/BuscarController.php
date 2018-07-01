@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Foto;
 use App\Repository\EstabelecimentoRepository;
 use App\Repository\MusicoRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,6 +61,30 @@ class BuscarController extends Controller
             );
 
             return $this->redirectToRoute("buscar_musico");
+        }
+
+        if($musicos){
+            $idUsuarios = [];
+            foreach($musicos as $musico){
+                $idUsuarios[] = $musico->getUsuario()->getId();
+            }
+
+            $fotos = $this->getDoctrine()->getRepository(Foto::class)
+                ->findBy([
+                    "usuario" => $idUsuarios
+                ]);
+
+            $musicos_temp = [];
+            foreach($musicos as $musico){
+                $fotos_temp = null;
+                foreach($fotos as $foto){
+                    if($foto->getUsuario()->getId() == $musico->getUsuario()->getId()){
+                        $fotos_temp[] = $foto;
+                    }
+                }
+                $musico->fotos = $fotos_temp;
+                $musicos_temp[] = $musico;
+            }
         }
 
         return $this->render('buscar/buscarMusico.html.twig', [

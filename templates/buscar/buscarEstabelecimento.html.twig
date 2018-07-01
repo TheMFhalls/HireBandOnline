@@ -13,7 +13,8 @@
                 <div class="filtro col-12 col-md-3">
                     <fieldset class="mb-10">
                         <legend>Filtro</legend>
-                        <form action="{{ path("buscar_estabelecimento_filtro") }}" method="post">
+                        <form action="{{ path("buscar_estabelecimento_filtro") }}" method="post"
+                        id="buscar-estabelecimento">
                             <label for="nome">por Nome</label>
                             <input type="text" id="nome" name="nome"
                             {% if filtro.nome is defined %}
@@ -33,7 +34,7 @@
                             {% endif %}
                             ></select>
                             <label for="bairro">seu Bairro</label>
-                            <select id="bairro" name="bairro" required="required"
+                            <select id="bairro" name="bairro"
                             {% if filtro.bairro is defined %}
                                 data-selected="{{ filtro.bairro }}"
                             {% endif %}
@@ -85,6 +86,25 @@
 
             $("select#cidade").on("change", function(){
                 buscarBairrosJson($(this).val());
+            });
+
+            $("#buscar-estabelecimento").on("submit", function(event){
+               event.preventDefault();
+               $form = $(this);
+               $selectBairro = $form.find("select#bairro");
+
+               if(
+                   $form.find("input#nome").val() == "" &&
+                   (
+                        $selectBairro.val() == null ||
+                        $selectBairro.val() == ""
+                   )
+               ){
+                   alert("Informe o Nome e/ou o Bairro do estabelecimento!");
+                   $selectBairro.focus();
+               }else{
+                   $form.unbind().submit();
+               }
             });
         });
     </script>
