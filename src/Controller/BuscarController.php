@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Foto;
 use App\Repository\EstabelecimentoRepository;
 use App\Repository\MusicoRepository;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,6 +35,7 @@ class BuscarController extends Controller
 
         if($data->nome != "" && $data->categoria == ""){
             $musicos = $musicoRepository->createQueryBuilder("musico")
+                ->innerJoin("mus.categoria", "cat")
                 ->where("musico.nome LIKE :nome")
                 ->setParameter("nome", "%".$data->nome."%")
                 ->getQuery()
@@ -63,30 +65,6 @@ class BuscarController extends Controller
             return $this->redirectToRoute("buscar_musico");
         }
 
-        if($musicos){
-            $idUsuarios = [];
-            foreach($musicos as $musico){
-                $idUsuarios[] = $musico->getUsuario()->getId();
-            }
-
-            $fotos = $this->getDoctrine()->getRepository(Foto::class)
-                ->findBy([
-                    "usuario" => $idUsuarios
-                ]);
-
-            $musicos_temp = [];
-            foreach($musicos as $musico){
-                $fotos_temp = null;
-                foreach($fotos as $foto){
-                    if($foto->getUsuario()->getId() == $musico->getUsuario()->getId()){
-                        $fotos_temp[] = $foto;
-                    }
-                }
-                $musico->fotos = $fotos_temp;
-                $musicos_temp[] = $musico;
-            }
-        }
-
         return $this->render('buscar/buscarMusico.html.twig', [
             'musicos' => $musicos,
             'filtro' => $data
@@ -107,18 +85,16 @@ class BuscarController extends Controller
                 ->getQuery()
                 ->getResult();
         }elseif($data->nome == "" && $data->bairro != ""){
-            $estabelecimentos = $estabelecimentoRepository->createQueryBuilder("mus")
-                ->innerJoin("mus.categoria", "cat")
-                ->where("cat.id = :categoria")
-                ->setParameter("categoria", $data->bairro)
+            $estabelecimentos = $estabelecimentoRepository->createQueryBuilder("est")
+                ->where("est.bairro = :bairro")
+                ->setParameter("bairro", $data->bairro)
                 ->getQuery()
                 ->getResult();
         }elseif($data->nome != "" && $data->bairro != ""){
-            $estabelecimentos = $estabelecimentoRepository->createQueryBuilder("mus")
-                ->innerJoin("mus.categoria", "cat")
-                ->where("cat.id = :categoria")
-                ->andWhere("mus.nome LIKE :nome")
-                ->setParameter("categoria", $data->bairro)
+            $estabelecimentos = $estabelecimentoRepository->createQueryBuilder("est")
+                ->where("est.bairro = :bairro")
+                ->andWhere("est.nome LIKE :nome")
+                ->setParameter("bairro", $data->bairro)
                 ->setParameter("nome", "%".$data->nome."%")
                 ->getQuery()
                 ->getResult();

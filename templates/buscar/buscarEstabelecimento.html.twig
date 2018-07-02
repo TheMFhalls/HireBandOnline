@@ -22,23 +22,11 @@
                             {% endif %}
                             />
                             <label for="estado">seu Estado</label>
-                            <select id="estado" name="estado"
-                            {% if filtro.estado is defined %}
-                                data-selected="{{ filtro.estado }}"
-                            {% endif %}
-                            ></select>
+                            <select id="estado" name="estado"></select>
                             <label for="cidade">sua Cidade</label>
-                            <select id="cidade" name="cidade"
-                            {% if filtro.cidade is defined %}
-                                data-selected="{{ filtro.cidade }}"
-                            {% endif %}
-                            ></select>
+                            <select id="cidade" name="cidade"></select>
                             <label for="bairro">seu Bairro</label>
-                            <select id="bairro" name="bairro"
-                            {% if filtro.bairro is defined %}
-                                data-selected="{{ filtro.bairro }}"
-                            {% endif %}
-                            ></select>
+                            <select id="bairro" name="bairro"></select>
                             </select>
                             <button class="btn btn-hire">
                                 Buscar

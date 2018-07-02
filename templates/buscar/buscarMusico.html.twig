@@ -39,8 +39,15 @@
                         <div class="musico col-12 col-md-4 mb-20">
                             <div class="capsula">
                                 <div class="imagem">
-                                    <img src="{{ asset("img/usuario.jpg") }}" alt="HireBandOnline"
-                                    class="img-responsive" />
+                                    {#{% if musico is defined %}#}
+                                        <img src="{{ asset("img/usuario.jpg") }}" alt="HireBandOnline"
+                                        class="img-responsive" />
+                                    {#{% else %}#}
+                                        {#{% for foto in musico.fotos %}#}
+                                            {#<img src="{{ foto.diretorio }}" alt="HireBandOnline"#}
+                                            {#class="img-responsive" />#}
+                                        {#{% endfor %}#}
+                                    {#{% endif %}#}
                                 </div>
                                 <div class="conteudo col-12">
                                     <div class="nome font-20 mb-10 text-center">{{ musico.nome }}</div>
@@ -48,9 +55,6 @@
                                     <div class="botao mb-10 text-center">
                                         <a href="javascript:void(0);" class="btn btn-hire">Saiba Mais</a>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    {{ dump(musico) }}
                                 </div>
                             </div>
                         </div>
