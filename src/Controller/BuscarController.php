@@ -35,7 +35,6 @@ class BuscarController extends Controller
 
         if($data->nome != "" && $data->categoria == ""){
             $musicos = $musicoRepository->createQueryBuilder("musico")
-                ->innerJoin("mus.categoria", "cat")
                 ->where("musico.nome LIKE :nome")
                 ->setParameter("nome", "%".$data->nome."%")
                 ->getQuery()
