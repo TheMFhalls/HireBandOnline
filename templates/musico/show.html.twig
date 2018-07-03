@@ -14,8 +14,43 @@
                     <th>Historia</th>
                     <td>{{ musico.historia }}</td>
                 </tr>
+                <tr>
+                    <th>Fotos</th>
+                    <td>
+                        {% if fotos is null %}
+                            <p class="text-center">-- Sem fotos --</p>
+                        {% else %}
+                            <div class="bxslider-fotos">
+                                {% for foto in fotos %}
+                                    <div>
+                                        <img src="{{ foto.diretorio }}"
+                                        alt="{{ foto.descricao }}" class="img-responsive" />
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    {% if fotos is not null %}
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.bxslider-fotos').bxSlider({
+                mode: "fade",
+                auto: true,
+                pager: false,
+                controls: true,
+                nextText: '<i class="fa fa-angle-right"></i>',
+                prevText: '<i class="fa fa-angle-left"></i>'
+            });
+        });
+    </script>
+    {% endif %}
 {% endblock %}

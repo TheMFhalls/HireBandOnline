@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Foto;
 use App\Entity\Musico;
 use App\Form\MusicoType;
 use App\Repository\MusicoRepository;
@@ -51,8 +52,14 @@ class MusicoController extends Controller
      */
     public function show(Musico $musico): Response
     {
+        $fotos = $this->getDoctrine()->getRepository(Foto::class)
+            ->findBy([
+                "usuario" => $musico->getUsuario()
+            ]);
+
         return $this->render('musico/show.html.twig', [
-            'musico' => $musico
+            'musico' => $musico,
+            'fotos' => $fotos
         ]);
     }
 

@@ -71,6 +71,33 @@ body footer section.ajax {
     background-color: rgba(0, 0, 0, 0.75);
 }
 
+.bx-wrapper{
+    position: relative;
+}
+
+.bx-wrapper .bx-controls.bx-has-controls-direction{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    z-index: 100;
+}
+
+.bx-wrapper .bx-controls.bx-has-controls-direction i{
+    color: white;
+    text-shadow: 0px 0px 3px black;
+    font-size: 40px;
+}
+
+.bx-wrapper .bx-controls.bx-has-controls-direction .bx-prev{
+    padding-left: 30px;
+}
+
+.bx-wrapper .bx-controls.bx-has-controls-direction .bx-next{
+    float: right;
+    padding-right: 30px;
+}
+
 body footer section.ajax.hide {
     opacity: 0;
     visibility: hidden;
