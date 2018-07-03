@@ -1,11 +1,15 @@
 {% extends 'administracao.html.twig' %}
 
-{% block title %}New Foto{% endblock %}
-
 {% block body %}
-    <h1>Create new Foto</h1>
-
-    {{ include('foto/_form.html.twig') }}
-
-    <a href="{{ path('foto_index') }}">back to list</a>
+    <form action="{{ path('foto_new') }}" method="post"
+    enctype="multipart/form-data">
+        <fieldset>
+            <legend>Adicionar Foto</legend>
+            <label for="descricao">Informe a Descrição da foto</label>
+            <input type="text" id="descricao" name="descricao" required="required" />
+            <label for="imagem">Selecione a Imagem</label>
+            <input type="file" id="imagem" name="imagem" />
+        </fieldset>
+        <input type="submit" value="Cadastrar" class="btn btn-hire" />
+    </form>
 {% endblock %}
