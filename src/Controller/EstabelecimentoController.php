@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Estabelecimento;
+use App\Entity\Foto;
+use App\Entity\Video;
 use App\Form\EstabelecimentoType;
 use App\Repository\EstabelecimentoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -51,7 +53,21 @@ class EstabelecimentoController extends Controller
      */
     public function show(Estabelecimento $estabelecimento): Response
     {
-        return $this->render('estabelecimento/show.html.twig', ['estabelecimento' => $estabelecimento]);
+        $fotos = $this->getDoctrine()->getRepository(Foto::class)
+            ->findBy([
+                "usuario" => $estabelecimento->getUsuario()
+            ]);
+
+        $videos = $this->getDoctrine()->getRepository(Video::class)
+            ->findBy([
+                "usuario" => $estabelecimento->getUsuario()
+            ]);
+
+        return $this->render('estabelecimento/show.html.twig', [
+            'estabelecimento' => $estabelecimento,
+            'fotos' => $fotos,
+            'videos' => $videos
+        ]);
     }
 
 //    /**

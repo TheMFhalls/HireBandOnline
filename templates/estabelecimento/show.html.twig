@@ -14,8 +14,73 @@
                     <th>Historia</th>
                     <td>{{ estabelecimento.historia }}</td>
                 </tr>
+                <tr>
+                    <th>Fotos</th>
+                    <td>
+                        {% if fotos is empty %}
+                            <p class="text-center">-- Sem fotos --</p>
+                        {% else %}
+                            <div class="bxslider-fotos">
+                                {% for foto in fotos %}
+                                    <div>
+                                        <img src="{{ foto.diretorio }}"
+                                             alt="{{ foto.descricao }}" class="img-responsive" />
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Vídeos</th>
+                    <td>
+                        {% if fotos is empty %}
+                            <p class="text-center">-- Sem videos --</p>
+                        {% else %}
+                            <div class="bxslider-fotos">
+                                {% for video in videos %}
+                                    <div>
+                                        <iframe src="{{ video.url }}" width="100%" height="300px" frameborder="0"></iframe>
+                                        <p class="text-center">{{ video.titulo }}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Entre em contato...</th>
+                    <td>
+                        <p><a href="javascript:void(0);" class="btn btn-hire">Enviar Mensagem</a></p>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.bxslider-fotos').bxSlider({
+                mode: "fade",
+                auto: true,
+                pager: false,
+                controls: true,
+                nextText: '<i class="fa fa-angle-right"></i>',
+                prevText: '<i class="fa fa-angle-left"></i>'
+            });
+
+            $('.bxslider-videos').bxSlider({
+                mode: "fade",
+                auto: true,
+                pager: false,
+                controls: true,
+                nextText: '<i class="fa fa-angle-right"></i>',
+                prevText: '<i class="fa fa-angle-left"></i>'
+            });
+        });
+    </script>
 {% endblock %}
