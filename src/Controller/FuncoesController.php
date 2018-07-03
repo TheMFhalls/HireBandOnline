@@ -42,6 +42,21 @@ class FuncoesController extends Controller
     }
 
     /**
+     * @param $objeto
+     * @return mixed|null
+     */
+    public static function getSessionObject($objeto)
+    {
+        $session = new Session();
+
+        if($session->has($objeto)){
+            return $session->get($objeto);
+        }else{
+            return null;
+        }
+    }
+
+    /**
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Session
      */
     public static function verificarSessao($obj, $mensagem = null)

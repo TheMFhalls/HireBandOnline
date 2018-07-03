@@ -52,7 +52,7 @@
                                         <div class="nome font-20 mb-10 text-center">{{ estabelecimento.nome }}</div>
                                         <div class="historia font-13 mb-10 text-justify">{{ estabelecimento.historia|striptags }}</div>
                                         <div class="botao mb-10 text-center">
-                                            <a href="javascript:void(0);" class="btn btn-hire">Saiba Mais</a>
+                                            <a href="{{ path('estabelecimento_show', {'id': estabelecimento.id}) }}" class="btn btn-hire">Saiba Mais</a>
                                         </div>
                                     </div>
                                 </div>

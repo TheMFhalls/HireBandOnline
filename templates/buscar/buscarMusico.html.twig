@@ -51,7 +51,7 @@
                                     <div class="nome font-20 mb-10 text-center">{{ musico.nome }}</div>
                                     <div class="historia font-13 mb-10 text-justify">{{ musico.historia|striptags }}</div>
                                     <div class="botao mb-10 text-center">
-                                        <a href="javascript:void(0);" class="btn btn-hire">Saiba Mais</a>
+                                        <a href="{{ path('musico_show', {'id': musico.id}) }}" class="btn btn-hire">Saiba Mais</a>
                                     </div>
                                 </div>
                             </div>
