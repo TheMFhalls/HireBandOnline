@@ -39,6 +39,11 @@ class Musico
      */
     private $categoria;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $imagem;
+
     public function __construct()
     {
         $this->categoria = new ArrayCollection();
@@ -113,5 +118,17 @@ class Musico
 
     public function __toString() {
         return $this->nome;
+    }
+
+    public function getImagem(): ?string
+    {
+        return $this->imagem;
+    }
+
+    public function setImagem(?string $imagem): self
+    {
+        $this->imagem = $imagem;
+
+        return $this;
     }
 }

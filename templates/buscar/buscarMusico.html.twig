@@ -39,15 +39,13 @@
                         <div class="musico col-12 col-md-4 mb-20">
                             <div class="capsula">
                                 <div class="imagem">
-                                    {#{% if musico is defined %}#}
+                                    {% if musico.imagem is null %}
                                         <img src="{{ asset("img/usuario.jpg") }}" alt="HireBandOnline"
                                         class="img-responsive" />
-                                    {#{% else %}#}
-                                        {#{% for foto in musico.fotos %}#}
-                                            {#<img src="{{ foto.diretorio }}" alt="HireBandOnline"#}
-                                            {#class="img-responsive" />#}
-                                        {#{% endfor %}#}
-                                    {#{% endif %}#}
+                                    {% else %}
+                                        <img src="{{ musico.imagem }}" alt="HireBandOnline"
+                                        class="img-responsive" />
+                                    {% endif %}
                                 </div>
                                 <div class="conteudo col-12">
                                     <div class="nome font-20 mb-10 text-center">{{ musico.nome }}</div>

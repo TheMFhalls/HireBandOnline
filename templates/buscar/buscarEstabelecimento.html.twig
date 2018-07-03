@@ -40,8 +40,13 @@
                             <div class="estabelecimento col-12 col-md-4 mb-20">
                                 <div class="capsula">
                                     <div class="imagem">
-                                        <img src="{{ asset("img/usuario.jpg") }}" alt="HireBandOnline"
-                                        class="img-responsive" />
+                                        {% if estabelecimento.imagem is null %}
+                                            <img src="{{ asset("img/usuario.jpg") }}" alt="HireBandOnline"
+                                            class="img-responsive" />
+                                        {% else %}
+                                            <img src="{{ estabelecimento.imagem }}" alt="HireBandOnline"
+                                            class="img-responsive" />
+                                        {% endif %}
                                     </div>
                                     <div class="conteudo col-12">
                                         <div class="nome font-20 mb-10 text-center">{{ estabelecimento.nome }}</div>

@@ -43,6 +43,11 @@ class Estabelecimento
      */
     private $endereco;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $imagem;
+
     public function getId()
     {
         return $this->id;
@@ -104,6 +109,18 @@ class Estabelecimento
     public function setEndereco(string $endereco): self
     {
         $this->endereco = $endereco;
+
+        return $this;
+    }
+
+    public function getImagem(): ?string
+    {
+        return $this->imagem;
+    }
+
+    public function setImagem(?string $imagem): self
+    {
+        $this->imagem = $imagem;
 
         return $this;
     }

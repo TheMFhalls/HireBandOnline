@@ -51,13 +51,12 @@ class CadastrarController extends Controller
 
             $em->persist($usuario);
 
-            $this->addFotoPerfil($request, $usuario, $em);
-
             if($data->tipo == "musico"){
                 $musico = $this->addMusico(
                     $data,
                     $usuario,
-                    $em
+                    $em,
+                    $request
                 );
 
                 $categorias = $doctrine->getRepository(Categoria::class)
@@ -73,7 +72,8 @@ class CadastrarController extends Controller
                     $data,
                     $usuario,
                     $doctrine,
-                    $em
+                    $em,
+                    $request
                 );
             }else{
                 throw new Exception("Informe um tipo de usuário!");
@@ -106,13 +106,16 @@ class CadastrarController extends Controller
      * @param $em
      * @return Musico
      */
-    private function addMusico($data, $usuario, $em): Musico
+    private function addMusico($data, $usuario, $em, Request $request): Musico
     {
         $musico = new Musico();
 
         $musico->setNome($data->nome_musico);
         $musico->setHistoria($data->historia_musico);
         $musico->setUsuario($usuario);
+        $musico->setImagem(
+            FuncoesController::converterImagem($request->files->get("imagem_perfil"))
+        );
 
         $em->persist($musico);
 
@@ -126,7 +129,7 @@ class CadastrarController extends Controller
      * @param $em
      * @return Estabelecimento
      */
-    private function addEstabelecimento($data, $usuario, $doctrine, $em): Estabelecimento
+    private function addEstabelecimento($data, $usuario, $doctrine, $em, Request $request): Estabelecimento
     {
         $estabelecimento = new Estabelecimento();
 
@@ -139,26 +142,14 @@ class CadastrarController extends Controller
                 ->find($data->bairro)
         );
 
+        if($request->files->get("imagem_perfil") != null){
+            $estabelecimento->setImagem(
+                FuncoesController::converterImagem($request->files->get("imagem_perfil"))
+            );
+        }
+
         $em->persist($estabelecimento);
 
         return $estabelecimento;
-    }
-
-    /**
-     * @param Request $request
-     * @param $usuario
-     * @param $em
-     */
-    private function addFotoPerfil(Request $request, $usuario, $em)
-    {
-        $foto = new Foto();
-
-        $foto->setUsuario($usuario);
-        $foto->setDescricao("Imagem de Perfil");
-        $foto->setDiretorio(FuncoesController::converterImagem(
-            $request->files->get("imagem_perfil"))
-        );
-
-        $em->persist($foto);
     }
 }
