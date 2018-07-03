@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Foto;
 use App\Entity\Musico;
+use App\Entity\Video;
 use App\Form\MusicoType;
 use App\Repository\MusicoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -57,9 +58,15 @@ class MusicoController extends Controller
                 "usuario" => $musico->getUsuario()
             ]);
 
+        $videos = $this->getDoctrine()->getRepository(Video::class)
+            ->findBy([
+                "usuario" => $musico->getUsuario()
+            ]);
+
         return $this->render('musico/show.html.twig', [
             'musico' => $musico,
-            'fotos' => $fotos
+            'fotos' => $fotos,
+            'videos' => $videos
         ]);
     }
 

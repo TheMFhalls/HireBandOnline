@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Usuario;
 use App\Entity\Video;
 use App\Form\VideoType;
 use App\Repository\VideoRepository;
@@ -20,7 +21,11 @@ class VideoController extends Controller
      */
     public function index(VideoRepository $videoRepository): Response
     {
-        return $this->render('video/index.html.twig', ['videos' => $videoRepository->findAll()]);
+        $videos = $videoRepository->findBy([
+            "usuario" => FuncoesController::getSessionObject("user")->getId()
+        ]);
+
+        return $this->render('video/index.html.twig', ['videos' => $videos]);
     }
 
     /**
@@ -28,51 +33,68 @@ class VideoController extends Controller
      */
     public function new(Request $request): Response
     {
-        $video = new Video();
-        $form = $this->createForm(VideoType::class, $video);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        if($request->getMethod() == "POST") {
             $em = $this->getDoctrine()->getManager();
+
+            $data = (object) $request->request->all();
+
+            $video = new Video();
+
+            $usuario = $em->getRepository(Usuario::class)
+                ->findOneBy([
+                    "id" => FuncoesController::getSessionObject("user")->getId()
+                ]);
+
+            $video->setTitulo($data->titulo);
+            $video->setDescricao($data->descricao);
+            $video->setUrl(preg_replace(
+                "/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i",
+                "//www.youtube.com/embed/$1",
+                $data->url
+            ));
+            $video->setUsuario($usuario);
+
             $em->persist($video);
             $em->flush();
 
-            return $this->redirectToRoute('video_index');
+            $this->addFlash(
+                "Mensagem",
+                "Vídeo inserido com sucesso!"
+            );
+
+            return $this->redirectToRoute("video_index");
         }
 
-        return $this->render('video/new.html.twig', [
-            'video' => $video,
-            'form' => $form->createView(),
-        ]);
+        return $this->render('video/new.html.twig');
     }
 
-    /**
-     * @Route("/{id}", name="video_show", methods="GET")
-     */
-    public function show(Video $video): Response
-    {
-        return $this->render('video/show.html.twig', ['video' => $video]);
-    }
+//    /**
+//     * @Route("/{id}", name="video_show", methods="GET")
+//     */
+//    public function show(Video $video): Response
+//    {
+//        return $this->render('video/show.html.twig', ['video' => $video]);
+//    }
 
-    /**
-     * @Route("/{id}/edit", name="video_edit", methods="GET|POST")
-     */
-    public function edit(Request $request, Video $video): Response
-    {
-        $form = $this->createForm(VideoType::class, $video);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('video_edit', ['id' => $video->getId()]);
-        }
-
-        return $this->render('video/edit.html.twig', [
-            'video' => $video,
-            'form' => $form->createView(),
-        ]);
-    }
+//    /**
+//     * @Route("/{id}/edit", name="video_edit", methods="GET|POST")
+//     */
+//    public function edit(Request $request, Video $video): Response
+//    {
+//        $form = $this->createForm(VideoType::class, $video);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $this->getDoctrine()->getManager()->flush();
+//
+//            return $this->redirectToRoute('video_edit', ['id' => $video->getId()]);
+//        }
+//
+//        return $this->render('video/edit.html.twig', [
+//            'video' => $video,
+//            'form' => $form->createView(),
+//        ]);
+//    }
 
     /**
      * @Route("/{id}", name="video_delete", methods="DELETE")

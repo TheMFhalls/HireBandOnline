@@ -1,9 +1,7 @@
 {% extends 'administracao.html.twig' %}
 
-{% block title %}Video index{% endblock %}
-
 {% block body %}
-    <h1>Video index</h1>
+    <h1>Listagem de Vídeos</h1>
 
     <table class="table">
         <thead>
@@ -12,7 +10,7 @@
                 <th>Titulo</th>
                 <th>Url</th>
                 <th>Descricao</th>
-                <th>actions</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -20,11 +18,12 @@
             <tr>
                 <td>{{ video.id }}</td>
                 <td>{{ video.titulo }}</td>
-                <td>{{ video.url }}</td>
+                <td>
+                    <iframe src="{{ video.url }}" width="100%" height="350px" frameborder="0"></iframe>
+                </td>
                 <td>{{ video.descricao }}</td>
                 <td>
-                    <a href="{{ path('video_show', {'id': video.id}) }}">show</a>
-                    <a href="{{ path('video_edit', {'id': video.id}) }}">edit</a>
+                    {{ include('video/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -35,5 +34,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('video_new') }}">Create new</a>
+    <a class="btn btn-success" href="{{ path('video_new') }}">Adicionar Vídeo</a>
 {% endblock %}
