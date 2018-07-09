@@ -77,6 +77,10 @@ class BuscarController extends Controller
     {
         $data = (object) $request->request->all();
 
+        if(empty($data->bairro)){
+            $data->bairro = "";
+        }
+
         if($data->nome != "" && $data->bairro == ""){
             $estabelecimentos = $estabelecimentoRepository->createQueryBuilder("musico")
                 ->where("musico.nome LIKE :nome")
